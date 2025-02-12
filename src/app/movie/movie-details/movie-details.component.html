@@ -1,0 +1,24 @@
+<div
+  class="w-[90%] md:w-1/2 flex flex-col gap-6 items-center mx-auto bg-gray-900 text-white rounded-3xl shadow-xl p-7 border border-gray-700"
+>
+  <!-- Back Button -->
+  <button
+    class="bg-white text-black font-semibold px-4 py-2 rounded-full hover:bg-blue-600 hover:text-white transition duration-300 shadow-md"
+    [routerLink]="['']"
+  >
+    ⬅️ Back To Home
+  </button>
+
+  <!-- Movie Card Content -->
+  <div class="text-center space-y-4">
+    <h2 class="text-4xl font-extrabold tracking-wide text-blue-400">
+      {{ movieData?.title }}
+    </h2>
+    <p class="text-lg text-gray-300 font-medium">
+      🌍 Language: <span class="text-white">{{ movieData?.language }}</span>
+    </p>
+    <p class="text-lg text-yellow-400 font-semibold">
+      ⭐ Rating: {{ movieData?.rating }}
+    </p>
+  </div>
+</div>

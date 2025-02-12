@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieType } from '../../movie-type';
 import { MovieService } from '../../movie.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-movies-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './movies-list.component.html',
   styleUrl: './movies-list.component.css',
 })
@@ -19,11 +20,15 @@ export class MoviesListComponent {
     });
   }
 
-  viewMovie(movie: any) {
-    alert(`Viewing: ${movie.title}`);
+  editMovie(movie: any) {
+    alert(movie);
   }
 
-  editMovie(movie: any) {
-    alert(`Editing: ${movie.title}`);
+  deleteMovie(movie: any) {
+    this.movieService.deleteMovie(movie.id).then(() => {
+      this.movieService.getAllMovies().then((moviesList: MovieType[]) => {
+        this.moviesList = moviesList;
+      });
+    });
   }
 }
