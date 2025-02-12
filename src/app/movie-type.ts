@@ -1,4 +1,4 @@
-export interface Movie {
+export interface MovieType {
   id: string;
   title: string;
   language: 'english' | 'bangla' | 'hindi';

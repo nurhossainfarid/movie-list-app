@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MovieType } from '../../movie-type';
+import { MovieService } from '../../movie.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -8,13 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './movies-list.component.css',
 })
 export class MoviesListComponent {
-  movies = [
-    { id: 'm1', title: 'Inception', language: 'English', rating: 5 },
-    { id: 'm2', title: '3 Idiots', language: 'Hindi', rating: 5 },
-    { id: 'm3', title: 'Poran', language: 'Bangla', rating: 4 },
-    { id: 'm4', title: 'Interstellar', language: 'English', rating: 5 },
-    { id: 'm5', title: 'PK', language: 'Hindi', rating: 4 },
-  ];
+  moviesList: MovieType[] = [];
+  movieService: MovieService = inject(MovieService);
+
+  constructor() {
+    this.movieService.getAllMovies().then((moviesList: MovieType[]) => {
+      this.moviesList = moviesList;
+    });
+  }
 
   viewMovie(movie: any) {
     alert(`Viewing: ${movie.title}`);
