@@ -5,6 +5,7 @@ import { MovieType } from './movie-type';
   providedIn: 'root',
 })
 export class MovieService {
+  
   url = 'http://localhost:5000/movies';
   constructor() {}
 

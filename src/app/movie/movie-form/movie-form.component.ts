@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormGroup,
@@ -7,6 +7,9 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { nanoid } from 'nanoid';
+import { MovieService } from '../../movie.service';
+import { MovieType } from '../../movie-type';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-movie-form',
@@ -15,6 +18,19 @@ import { nanoid } from 'nanoid';
   styleUrl: './movie-form.component.css',
 })
 export class MovieFormComponent {
+  movieData: MovieType | undefined;
+  movieService: MovieService = inject(MovieService);
+
+  constructor(private toastr: ToastrService) {}
+
+  showSuccess(message: string) {
+    this.toastr.success(message, 'Success');
+  }
+
+  showError(message: string) {
+    this.toastr.error(message, 'Error');
+  }
+
   showModal = false;
   openModal() {
     this.showModal = true;
@@ -42,11 +58,21 @@ export class MovieFormComponent {
   ];
 
   addMovieInfo() {
-    if (this.movieForm.valid) {
-      console.warn('Submitted Data:', this.movieForm.value);
-
-      this.movieForm.reset();
-      this.closeModal();
+    try {
+      if (this.movieForm.valid) {
+        const newMovie = {
+          id: this.movieForm.value.id,
+          title: this.movieForm.value.title,
+          language: this.movieForm.value.language,
+          rating: this.movieForm.value.rating,
+        } as MovieType;
+        this.movieService.createMovie(newMovie);
+        this.showSuccess('Movie added successfully!');
+        this.movieForm.reset();
+        this.closeModal();
+      }
+    } catch (error) {
+      this.showError('Failed to add movie!');
     }
   }
 }

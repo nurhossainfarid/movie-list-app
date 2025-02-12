@@ -1,5 +1,8 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { provideToastr } from 'ngx-toastr';
 
 import {
   provideClientHydration,
@@ -12,5 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routesConfig),
     provideClientHydration(withEventReplay()),
+    provideToastr(),
+    { provide: BrowserAnimationsModule },
   ],
 };
