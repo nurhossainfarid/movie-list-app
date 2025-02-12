@@ -1,59 +1,96 @@
-# MoiveListApp
+# Movie Feedback App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+![impleVista](https://res.cloudinary.com/duoa4oiur/image/upload/v1739376723/movieList_ftl98s.png)
 
-## Development server
+The Movie Feedback App is an Angular-based application designed for managing a list of movies with key features such as adding, viewing, editing, and deleting movie entries.The app provides a user-friendly interface for managing movie lists, leveraging modern Angular features to ensure a smooth and interactive experience. 🚀
 
-To start a local development server, run:
+#### Video Explanation (Public Link): https://www.loom.com/share/ba11e7351aea4109a3653b34e5bf1685?sid=8d8fbf07-3c24-4688-964e-191cc7961a95
 
-```bash
-ng serve
-```
+## **Features**
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### **1. Movie Entry Form**
 
-## Code scaffolding
+Users can add movies with details likes:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Movie Title (text input)
+- Language (dropdown: English, Bangla, Hindi)
+- Rating (decimal input)
+- File Attachment (for images or documents, displayed in view mode)
 
-```bash
-ng generate component component-name
-```
+### **2. Data Management**
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Movies are displayed in a list or table format.
+- Users can view details or edit movie entries.
+- File attachments are viewable in the UI.
 
-```bash
-ng generate --help
-```
+### **3. Technical Implementation**
 
-## Building
+- Angular Services & Observables for state managemen
+- Angular Signals for reactive programming.
+- Automatically set `inStock` to `false` when stock reaches zero.
+- HTTP Client to fetch mock movie data from free APIs.
 
-To build the project run:
+## **Technology Stack**
 
-```bash
-ng build
-```
+- **Framework:** [Angular.js](https://angular.dev/tools/cli)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Language:** [JsonServer](https://www.npmjs.com/package/json-server)
+- **API Testing:** [ThunderClient](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## **Developer guide**
 
-## Running unit tests
+- Clone the project in your local machine
+  ```bash
+   git clone https://github.com/nurhossainfarid/movie-list-app
+  ```
+- Install all the the dependencies
+  ```bash
+   npm install
+  ```
+- Run Code
+  ```bash
+   ng serve
+   npm run json:server [server]
+  ```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## **API END POINT**
 
-```bash
-ng test
-```
+#### **Add Movie**
 
-## Running end-to-end tests
+- Endpoint: http://localhost:5000/movies
+- Method: POST
 
-For end-to-end (e2e) testing, run:
+#### **Get All Movies**
 
-```bash
-ng e2e
-```
+- Endpoint: http://localhost:5000/movies
+- Method: GET
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+#### **Get Single Movie**
 
-## Additional Resources
+- Endpoint: http://localhost:5000/movies/:id
+- Method: GET
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+#### **Update a Movie**
+
+- Endpoint: http://localhost:5000/movies/:id
+- Method: PUT
+
+#### **Delete a Movie**
+
+- Endpoint: http://localhost:5000/movies/:id
+- Method: DELETE
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contributions
+
+Feel free to fork this repository, raise issues, and submit pull requests to contribute to this project.
+
+## Contact
+
+For queries, suggestions, or feedback, please contact:
+Nur Hossain Farid
+Email: faahsan1516@gmai.com
+GitHub: github.com/nurhossainfarid
