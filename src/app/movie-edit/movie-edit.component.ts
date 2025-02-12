@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './movie-edit.component.html',
   styleUrl: './movie-edit.component.css',
 })
-export class MovieEditComponent {
+export class MovieEditComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   movieService = inject(MovieService);
@@ -29,17 +29,23 @@ export class MovieEditComponent {
     rating: new FormControl(0, [Validators.min(1), Validators.max(5)]),
   });
 
-  constructor(private toastr: ToastrService) {
+  constructor(private toastr: ToastrService) {}
+
+  ngOnInit(): void {
     const movieId = this.route.snapshot.params['id'];
-    this.movieService
-      .getMovieById(movieId)
-      .then((movieData: MovieType | undefined) => {
-        if (movieData) {
-          this.movieData = movieData;
+    this.movieService.getMovieById(movieId).subscribe({
+      next: (movie) => {
+        if (movie) {
+          this.movieData = movie;
         } else {
-          console.error('Movie data not found');
+          this.toastr.error('Movie not found');
         }
-      });
+      },
+      error: (err) => {
+        console.error('Error fetching movie:', err);
+        this.toastr.error('Failed to load movie');
+      },
+    });
   }
 
   showSuccess(message: string) {
@@ -57,25 +63,27 @@ export class MovieEditComponent {
   ];
 
   updateMovieInfo() {
-    try {
-      const updatedMovie = {
-        id: this.movieData?.id,
-        title: !this.movieForm.value.title
-          ? this.movieData?.title
-          : this.movieForm.value.title,
-        language: !this.movieForm.value.language
-          ? this.movieData?.language
-          : this.movieForm.value.language,
-        rating: !this.movieForm.value.rating
-          ? this.movieData?.rating
-          : this.movieForm.value.rating,
-      } as MovieType;
-      console.log(updatedMovie);
-      this.movieService.updateMovie(updatedMovie);
-      this.showSuccess('Movie added successfully!');
-      this.router.navigate([`/movie/${this.movieData?.id}`]);
-    } catch (error) {
-      this.showError('Failed to add movie!');
-    }
+    const updatedMovie = {
+      id: this.movieData?.id,
+      title: !this.movieForm.value.title
+        ? this.movieData?.title
+        : this.movieForm.value.title,
+      language: !this.movieForm.value.language
+        ? this.movieData?.language
+        : this.movieForm.value.language,
+      rating: !this.movieForm.value.rating
+        ? this.movieData?.rating
+        : this.movieForm.value.rating,
+    } as MovieType;
+
+    this.movieService.updateMovie(updatedMovie).subscribe({
+      next: (updatedMovie) => {
+        this.showSuccess('Movie updated successfully!');
+        this.router.navigate([`/movie/${updatedMovie.id}`]);
+      },
+      error: (err) => {
+        this.showError('Failed to update movie!');
+      },
+    });
   }
 }

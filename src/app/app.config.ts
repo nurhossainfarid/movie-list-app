@@ -2,6 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { provideHttpClient } from '@angular/common/http';
 
 import {
   provideClientHydration,
@@ -20,5 +21,6 @@ export const appConfig: ApplicationConfig = {
       preventDuplicates: true,
     }),
     { provide: BrowserAnimationsModule },
+    provideHttpClient(),
   ],
 };

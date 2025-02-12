@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../../movie.service';
 import { MovieType } from '../../movie-type';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-movie-details',
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css',
 })
-export class MovieDetailsComponent {
+export class MovieDetailsComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   movieService = inject(MovieService);
   movieData: MovieType | undefined;
@@ -19,17 +20,22 @@ export class MovieDetailsComponent {
   fileUrl: string | null = null;
   fileContent: string = '';
 
-  constructor() {
+  constructor(private toastr: ToastrService) {}
+
+  ngOnInit(): void {
     const movieId = this.route.snapshot.params['id'];
-    this.movieService
-      .getMovieById(movieId)
-      .then((movieData: MovieType | undefined) => {
-        if (movieData) {
-          this.movieData = movieData;
+    this.movieService.getMovieById(movieId).subscribe({
+      next: (movie) => {
+        if (movie) {
+          this.movieData = movie;
         } else {
-          console.error('Movie data not found');
+          this.toastr.error('Movie not found');
         }
-      });
+      },
+      error: (err) => {
+        this.toastr.error('Failed to load movie');
+      },
+    });
   }
 
   // Handle file selection

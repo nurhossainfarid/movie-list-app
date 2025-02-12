@@ -10,6 +10,7 @@ import { nanoid } from 'nanoid';
 import { MovieService } from '../../movie.service';
 import { MovieType } from '../../movie-type';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-form',
@@ -20,15 +21,16 @@ import { ToastrService } from 'ngx-toastr';
 export class MovieFormComponent {
   movieData: MovieType | undefined;
   movieService: MovieService = inject(MovieService);
+  router: Router = inject(Router);
 
   constructor(private toastr: ToastrService) {}
 
   showSuccess(message: string) {
-    this.toastr.success(message, 'Success');
+    this.toastr.success(message);
   }
 
   showError(message: string) {
-    this.toastr.error(message, 'Error');
+    this.toastr.error(message);
   }
 
   showModal = false;
@@ -58,21 +60,27 @@ export class MovieFormComponent {
   ];
 
   addMovieInfo() {
-    try {
-      if (this.movieForm.valid) {
-        const newMovie = {
-          id: this.movieForm.value.id,
-          title: this.movieForm.value.title,
-          language: this.movieForm.value.language,
-          rating: this.movieForm.value.rating,
-        } as MovieType;
-        this.movieService.createMovie(newMovie);
-        this.showSuccess('Movie added successfully!');
-        this.movieForm.reset();
-        this.closeModal();
-      }
-    } catch (error) {
-      this.showError('Failed to add movie!');
+    if (this.movieForm.valid) {
+      const newMovie = {
+        id: this.movieForm.value.id,
+        title: this.movieForm.value.title,
+        language: this.movieForm.value.language,
+        rating: this.movieForm.value.rating,
+      } as MovieType;
+
+      this.movieService.createMovie(newMovie).subscribe({
+        next: () => {
+          this.movieForm.reset();
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error('Error creating movie:', err);
+          this.showError('Failed to add movie!');
+        },
+      });
+      this.showSuccess('Movie added successfully!');
+    } else {
+      this.showError('Please fill all required fields!');
     }
   }
 }

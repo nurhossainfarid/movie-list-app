@@ -1,75 +1,38 @@
 import { Injectable } from '@angular/core';
 import { MovieType } from './movie-type';
+import { Observable } from 'rxjs';
+import { catchError, retry } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService {
-  url = 'http://localhost:5000/movies';
-  constructor() {}
+  url: string = 'http://localhost:5000/movies';
+  constructor(private http: HttpClient) {}
 
-  async createMovie(movie: MovieType) {
-    try {
-      const response = await fetch(this.url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(movie),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      await response.json();
-    } catch (error: any) {
-      alert(error.message);
-    }
+  // Create Movie
+  createMovie(movie: MovieType): Observable<MovieType> {
+    return this.http.post<MovieType>(this.url, movie);
   }
 
-  async getAllMovies(): Promise<MovieType[]> {
-    const response = await fetch(this.url);
-    const data = (await response.json()) ?? [];
-    return data;
+  // Get All Movies
+  getAllMovies(): Observable<MovieType[]> {
+    return this.http.get<MovieType[]>(this.url);
   }
 
-  async getMovieById(id: number): Promise<MovieType | undefined> {
-    const response = await fetch(`${this.url}/${id}`);
-    const data = (await response.json()) ?? {};
-    return data;
-  }
-  
-  async updateMovie(movie: MovieType) {
-    try {
-      const response = await fetch(`${this.url}/${movie.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(movie),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      await response.json();
-    } catch (error: any) {
-      alert(error.message);
-    }
+  // Get Movie By Id
+  getMovieById(id: number): Observable<MovieType> {
+    return this.http.get<MovieType>(`${this.url}/${id}`);
   }
 
-  async deleteMovie(id: string) {
-    try {
-      const response = await fetch(`${this.url}/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+  // Update Movie
+  updateMovie(movie: MovieType): Observable<MovieType> {
+    return this.http.put<MovieType>(`${this.url}/${movie.id}`, movie);
+  }
 
-      await response.json();
-    } catch (error: any) {
-      alert(error.message);
-    }
+  // Delete Movie
+  deleteMovie(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 }
