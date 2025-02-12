@@ -1,0 +1,96 @@
+<div class="max-w-lg mx-auto bg-gray-900 text-white p-8 rounded-3xl shadow-xl">
+  <h2 class="text-3xl font-bold text-center text-blue-400 mb-6">
+    Update Movie
+  </h2>
+
+  <form
+    [formGroup]="movieForm"
+    (ngSubmit)="updateMovieInfo()"
+    class="space-y-6"
+  >
+    <!-- Movie Title -->
+    <div>
+      <label for="title" class="block text-lg font-medium text-gray-300 mb-2">
+        🎬 Title
+      </label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="w-full p-3 border border-gray-700 rounded-xl bg-gray-800 text-white focus:ring focus:ring-blue-400 outline-none"
+        placeholder="Enter movie title"
+        value="{{ movieData?.title }}"
+      />
+      <p
+        *ngIf="
+          movieForm.controls.title.invalid && movieForm.controls.title.touched
+        "
+        class="text-red-500 text-sm mt-2"
+      >
+        Title is required.
+      </p>
+    </div>
+
+    <!-- Language -->
+    <div>
+      <label
+        for="language"
+        class="block text-lg font-medium text-gray-300 mb-2"
+      >
+        🌍 Language
+      </label>
+      <select
+        id="language"
+        formControlName="language"
+        class="w-full p-3 border border-gray-700 rounded-xl bg-gray-800 text-white focus:ring focus:ring-blue-400 outline-none"
+      >
+        <option value="" disabled>{{ movieData?.language }}</option>
+        <option *ngFor="let lang of languages" [value]="lang.value">
+          {{ lang.label }}
+        </option>
+      </select>
+      <p
+        *ngIf="
+          movieForm.controls.language.invalid &&
+          movieForm.controls.language.touched
+        "
+        class="text-red-500 text-sm mt-2"
+      >
+        Language is required.
+      </p>
+    </div>
+
+    <!-- Rating -->
+    <div>
+      <label for="rating" class="block text-lg font-medium text-gray-300 mb-2">
+        ⭐ Rating (1-5)
+      </label>
+      <input
+        type="number"
+        id="rating"
+        formControlName="rating"
+        min="1"
+        max="5"
+        class="w-full p-3 border border-gray-700 rounded-xl bg-gray-800 text-white focus:ring focus:ring-blue-400 outline-none"
+        placeholder="Enter rating"
+        value="{{ movieData?.rating }}"
+      />
+      <p
+        *ngIf="
+          movieForm.controls.rating.invalid && movieForm.controls.rating.touched
+        "
+        class="text-red-500 text-sm mt-2"
+      >
+        Rating must be between 1 and 5.
+      </p>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="w-full p-3 rounded-xl transition text-white bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed shadow-lg text-lg font-semibold flex items-center justify-center"
+    >
+      Update Movie Data
+    </button>
+  </form>
+</div>

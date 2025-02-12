@@ -20,10 +20,6 @@ export class MoviesListComponent {
     });
   }
 
-  editMovie(movie: any) {
-    alert(movie);
-  }
-
   deleteMovie(movie: any) {
     this.movieService.deleteMovie(movie.id).then(() => {
       this.movieService.getAllMovies().then((moviesList: MovieType[]) => {

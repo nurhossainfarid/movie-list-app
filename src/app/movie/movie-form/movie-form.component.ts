@@ -52,9 +52,9 @@ export class MovieFormComponent {
   });
 
   languages = [
-    { value: 'english', label: 'English' },
-    { value: 'bangla', label: 'Bangla' },
-    { value: 'hindi', label: 'Hindi' },
+    { value: 'English', label: 'English' },
+    { value: 'Bangla', label: 'Bangla' },
+    { value: 'Hindi', label: 'Hindi' },
   ];
 
   addMovieInfo() {
