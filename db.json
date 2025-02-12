@@ -1,0 +1,22 @@
+{
+  "movies": [
+    {
+      "id": "m1",
+      "title": "Inception",
+      "language": "English",
+      "rating": 5
+    },
+    {
+      "id": "m2",
+      "title": "3 Idiots",
+      "language": "Hindi",
+      "rating": 5
+    },
+    {
+      "id": "m3",
+      "title": "Poran",
+      "language": "Bangla",
+      "rating": 4
+    }
+  ]
+}

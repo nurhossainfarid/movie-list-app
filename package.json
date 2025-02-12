@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "json:server": "json-server --watch db.json --port 5000",
     "serve:ssr:moive-list-app": "node dist/moive-list-app/server/server.mjs"
   },
   "private": true,
@@ -23,6 +24,7 @@
     "@angular/ssr": "^19.1.6",
     "@tailwindcss/postcss": "^4.0.6",
     "express": "^4.18.2",
+    "json-server": "^1.0.0-beta.3",
     "moive-list-app": "file:",
     "nanoid": "^5.0.9",
     "postcss": "^8.5.2",
