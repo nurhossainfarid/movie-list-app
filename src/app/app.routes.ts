@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MovieDetailsComponent } from './movie/movie-details/movie-details.component';
-import { MovieEditComponent } from './movie-edit/movie-edit.component';
+import { MovieEditComponent } from './movie/movie-edit/movie-edit.component';
 
 export const routesConfig: Routes = [
   {

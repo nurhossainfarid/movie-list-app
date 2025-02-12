@@ -17,14 +17,14 @@ export class MovieService {
     return this.moviesListSignal;
   }
 
-  // **Fetch All Movies and Update Signal**
+  // **Fetch All Movies**
   getAllMovies(): Observable<MovieType[]> {
-    return this.http.get<MovieType[]>(this.url).pipe(
-      tap((movies) => this.moviesListSignal.set(movies)) // Update signal with fetched movies
-    );
+    return this.http
+      .get<MovieType[]>(this.url)
+      .pipe(tap((movies) => this.moviesListSignal.set(movies)));
   }
 
-  // **Create a Movie and Update Signal**
+  // **Create a Movie**
   createMovie(movie: MovieType): Observable<MovieType> {
     return this.http.post<MovieType>(this.url, movie).pipe(
       tap((newMovie) => {
@@ -33,8 +33,8 @@ export class MovieService {
     );
   }
 
-  // **Get a Single Movie by ID (No Signal Change Needed)**
-  getMovieById(id: number): Observable<MovieType> {
+  // **Get a Single Movie by ID**
+  getMovieById(id: string): Observable<MovieType> {
     return this.http.get<MovieType>(`${this.url}/${id}`);
   }
 

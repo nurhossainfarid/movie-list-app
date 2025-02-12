@@ -62,7 +62,7 @@ export class MovieFormComponent {
   addMovieInfo() {
     if (this.movieForm.valid) {
       const newMovie = {
-        id: this.movieForm.value.id,
+        id: nanoid(),
         title: this.movieForm.value.title,
         language: this.movieForm.value.language,
         rating: this.movieForm.value.rating,

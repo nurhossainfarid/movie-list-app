@@ -4,7 +4,7 @@
 
 The Movie Feedback App is an Angular-based application designed for managing a list of movies with key features such as adding, viewing, editing, and deleting movie entries.The app provides a user-friendly interface for managing movie lists, leveraging modern Angular features to ensure a smooth and interactive experience. 🚀
 
-#### Video Explanation (Public Link): https://www.loom.com/share/ba11e7351aea4109a3653b34e5bf1685?sid=8d8fbf07-3c24-4688-964e-191cc7961a95
+#### Video Explanation (Public Link): https://www.loom.com/share/c9fcde088e914cbba105eb81f9657df4?sid=54929488-a2ba-4bda-a39e-2d5e1471a7ee
 
 ## **Features**
 

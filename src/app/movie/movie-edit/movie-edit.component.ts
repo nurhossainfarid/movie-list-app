@@ -7,8 +7,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from '../movie.service';
-import { MovieType } from '../movie-type';
+import { MovieService } from '../../movie.service';
+import { MovieType } from '../../movie-type';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
