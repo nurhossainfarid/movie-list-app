@@ -1,0 +1,39 @@
+<div class="mx-auto mt-6 bg-white p-4">
+  <h2 class="text-xl font-semibold mb-4 text-center">Movie List</h2>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 p-2 text-left">Title</th>
+          <th class="border border-gray-300 p-2 text-left">Language</th>
+          <th class="border border-gray-300 p-2 text-left">Rating</th>
+          <th class="border border-gray-300 p-2 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movie of movies" class="hover:bg-gray-50">
+          <td class="border border-gray-300 p-2">{{ movie.title }}</td>
+          <td class="border border-gray-300 p-2">{{ movie.language }}</td>
+          <td class="border border-gray-300 p-2">{{ movie.rating }}/5</td>
+          <td class="border border-gray-300 p-2 text-center">
+            <!-- View Button -->
+            <button
+              (click)="viewMovie(movie)"
+              class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition"
+            >
+              View
+            </button>
+            <!-- Edit Button -->
+            <button
+              (click)="editMovie(movie)"
+              class="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 transition ml-2"
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
