@@ -1,5 +1,13 @@
-<nav>
-  <a  routerLink="/home">Home</a>
-  <a routerLink="/about">About</a>
-  <a routerLink="/contact">Contact</a>
-</nav>
+<main class="px-20 py-5">
+  <header class="brand-name">
+    <img
+      class="h-20"
+      src="https://implevista.com/logo.png"
+      alt="logo"
+      aria-hidden="true"
+    />
+  </header>
+  <section class="content">
+    <router-outlet></router-outlet>
+  </section>
+</main>
