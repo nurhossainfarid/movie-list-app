@@ -1,38 +1,62 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { MovieType } from './movie-type';
-import { Observable } from 'rxjs';
-import { catchError, retry } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService {
-  url: string = 'http://localhost:5000/movies';
+  private url: string = 'http://localhost:5000/movies';
+
+  private moviesListSignal = signal<MovieType[]>([]);
+
   constructor(private http: HttpClient) {}
 
-  // Create Movie
-  createMovie(movie: MovieType): Observable<MovieType> {
-    return this.http.post<MovieType>(this.url, movie);
+  get moviesList() {
+    return this.moviesListSignal;
   }
 
-  // Get All Movies
+  // **Fetch All Movies and Update Signal**
   getAllMovies(): Observable<MovieType[]> {
-    return this.http.get<MovieType[]>(this.url);
+    return this.http.get<MovieType[]>(this.url).pipe(
+      tap((movies) => this.moviesListSignal.set(movies)) // Update signal with fetched movies
+    );
   }
 
-  // Get Movie By Id
+  // **Create a Movie and Update Signal**
+  createMovie(movie: MovieType): Observable<MovieType> {
+    return this.http.post<MovieType>(this.url, movie).pipe(
+      tap((newMovie) => {
+        this.moviesListSignal.update((movies) => [...movies, newMovie]);
+      })
+    );
+  }
+
+  // **Get a Single Movie by ID (No Signal Change Needed)**
   getMovieById(id: number): Observable<MovieType> {
     return this.http.get<MovieType>(`${this.url}/${id}`);
   }
 
-  // Update Movie
+  // **Update a Movie and Modify Signal**
   updateMovie(movie: MovieType): Observable<MovieType> {
-    return this.http.put<MovieType>(`${this.url}/${movie.id}`, movie);
+    return this.http.put<MovieType>(`${this.url}/${movie.id}`, movie).pipe(
+      tap((updatedMovie) => {
+        this.moviesListSignal.update((movies) =>
+          movies.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
+        );
+      })
+    );
   }
 
-  // Delete Movie
+  // **Delete a Movie and Remove it from Signal**
   deleteMovie(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.url}/${id}`);
+    return this.http.delete<void>(`${this.url}/${id}`).pipe(
+      tap(() => {
+        this.moviesListSignal.update((movies) =>
+          movies.filter((m) => m.id !== id)
+        );
+      })
+    );
   }
 }

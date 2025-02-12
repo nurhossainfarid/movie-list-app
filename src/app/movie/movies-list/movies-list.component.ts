@@ -12,23 +12,14 @@ import { RouterModule } from '@angular/router';
   styleUrl: './movies-list.component.css',
 })
 export class MoviesListComponent {
-  moviesList: MovieType[] = [];
   movieService: MovieService = inject(MovieService);
+  moviesList = this.movieService.moviesList;
 
-  constructor(private moviesService: MovieService) {
-    moviesService.getAllMovies().subscribe((moviesList: MovieType[]) => {
-      this.moviesList = moviesList;
-    });
-  }
-  loadMovies() {
-    this.movieService.getAllMovies().subscribe((moviesList: MovieType[]) => {
-      this.moviesList = moviesList;
-    });
+  constructor() {
+    this.movieService.getAllMovies().subscribe();
   }
 
   deleteMovie(movie: MovieType) {
-    this.movieService.deleteMovie(movie.id).subscribe(() => {
-      this.loadMovies();
-    });
+    this.movieService.deleteMovie(movie.id).subscribe();
   }
 }

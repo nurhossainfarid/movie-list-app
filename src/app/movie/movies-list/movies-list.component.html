@@ -1,7 +1,7 @@
 <div class="mx-auto mt-6 bg-white p-4">
   <h2 class="text-3xl font-semibold mb-4 text-center">Movies List</h2>
   <div class="overflow-x-auto">
-    <ng-container *ngIf="moviesList.length > 0">
+    <ng-container *ngIf="moviesList().length > 0">
       <table class="w-full border-collapse border border-gray-300">
         <thead>
           <tr class="bg-gray-100">
@@ -12,7 +12,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let movie of moviesList" class="hover:bg-gray-50">
+          <tr *ngFor="let movie of moviesList()" class="hover:bg-gray-50">
             <td class="border border-gray-300 p-2">{{ movie.title }}</td>
             <td class="border border-gray-300 p-2">{{ movie.language }}</td>
             <td class="border border-gray-300 p-2">{{ movie.rating }}/5</td>
@@ -42,7 +42,7 @@
         </tbody>
       </table>
     </ng-container>
-    <ng-container *ngIf="moviesList.length === 0">
+    <ng-container *ngIf="moviesList().length === 0">
       <p class="text-center text-lg text-red-500">
         Uff Sorry, No Movies Found. Please Add Movie
       </p>
