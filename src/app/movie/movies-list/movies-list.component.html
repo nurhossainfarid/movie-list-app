@@ -1,6 +1,7 @@
 <div class="mx-auto mt-6 bg-white p-4">
-  <h2 class="text-xl font-semibold mb-4 text-center">Movie List</h2>
+  <h2 class="text-2xl font-semibold mb-4 text-center">Movies List</h2>
 
+  <!-- Movie Data -->
   <div class="overflow-x-auto">
     <table class="w-full border-collapse border border-gray-300">
       <thead>
@@ -17,14 +18,12 @@
           <td class="border border-gray-300 p-2">{{ movie.language }}</td>
           <td class="border border-gray-300 p-2">{{ movie.rating }}/5</td>
           <td class="border border-gray-300 p-2 text-center">
-            <!-- View Button -->
             <button
               (click)="viewMovie(movie)"
               class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition"
             >
               View
             </button>
-            <!-- Edit Button -->
             <button
               (click)="editMovie(movie)"
               class="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 transition ml-2"
