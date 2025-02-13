@@ -38,7 +38,7 @@ export class MovieService {
     return this.http.get<MovieType>(`${this.url}/${id}`);
   }
 
-  // **Update a Movie and Modify Signal**
+  // **Update a Movie**
   updateMovie(movie: MovieType): Observable<MovieType> {
     return this.http.put<MovieType>(`${this.url}/${movie.id}`, movie).pipe(
       tap((updatedMovie) => {
@@ -49,7 +49,7 @@ export class MovieService {
     );
   }
 
-  // **Delete a Movie and Remove it from Signal**
+  // **Delete a Movie**
   deleteMovie(id: string): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`).pipe(
       tap(() => {

@@ -25,19 +25,20 @@ export class MovieFormComponent {
 
   constructor(private toastr: ToastrService) {}
 
+  // Toastr success message
   showSuccess(message: string) {
     this.toastr.success(message);
   }
-
+  // Toastr error message
   showError(message: string) {
     this.toastr.error(message);
   }
 
+  // Modal
   showModal = false;
   openModal() {
     this.showModal = true;
   }
-
   closeModal() {
     this.showModal = false;
   }
